@@ -1,5 +1,6 @@
 package photoalbum;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +20,7 @@ import shapes.Triangle;
 public class PhotoPage {
   private static PhotoPage page = null;
   private static Set<IShape> shapes = new HashSet<>();
+  private static HashMap<String, Snapshot> history = new HashMap<>();
 
   /**
    * This is the private default constructor for the photo page.
@@ -113,7 +115,29 @@ public class PhotoPage {
    * @param shape new shape to be added on the page
    */
   public void addShape(IShape shape) {
+    if (shape == null) {
+      return;
+    }
+    String description = "Added new shape " + shape.getName();
     shapes.add(shape);
+    capture(description);
+  }
+
+  /**
+   * Removes the shape from the page if it exists.
+   * @param shape to be removed
+   */
+  public void removeShape(IShape shape) {
+    if (shape == null) {
+      return;
+    }
+    String description = "Removed shape " + shape.getName();
+    for (IShape each : shapes) {
+      if (each.equals(shape)) {
+        shapes.remove(each);
+      }
+    }
+    capture(description);
   }
 
   /**
@@ -123,9 +147,12 @@ public class PhotoPage {
    * @param value new value
    */
   public void changeSize(String name, String parameter, double value) {
+    String description = "";
     for (IShape each : shapes) {
       if (name.equalsIgnoreCase(each.getName())) {
         each.changeValue(parameter, value);
+        description = "Changed " + each.getName() + " " + parameter + "to " + value;
+        capture(description);
       }
     }
   }
@@ -138,18 +165,54 @@ public class PhotoPage {
    * @param value new value
    */
   public void changeColor(String name, String color, double value) {
+    String description = "";
     for (IShape each: shapes) {
       if (name.equalsIgnoreCase(each.getName())) {
         if (color.equalsIgnoreCase("red")) {
           each.getColor().setRed(value);
+          description = "Changed " + color + " to " + value;
+          capture(description);
         }
         if (color.equalsIgnoreCase("green")) {
           each.getColor().setGreen(value);
+          description = "Changed " + color + " to " + value;
+          capture(description);
         }
         if (color.equalsIgnoreCase("blue")) {
           each.getColor().setBlue(value);
+          description = "Changed " + color + " to " + value;
+          capture(description);
         }
       }
     }
+  }
+
+  /**
+   * Textual representation of the page.
+   * @return page's shapes as string
+   */
+  public String toString() {
+    boolean isFirst = true;
+    String output = "";
+    for (IShape each : shapes) {
+      if (isFirst) {
+        output = output + each.toString();
+        isFirst = false;
+      }
+      else {
+        output = "\n" + each.toString();
+      }
+    }
+    return output;
+  }
+
+  /**
+   * This creates a snapshot of the page.
+   * @param description description of the action.
+   * @return new snapshot
+   */
+  private void capture(String description) {
+    Snapshot s = new Snapshot(description, List.copyOf(shapes));
+    history.put(s.getSnapID(), s);
   }
 }
