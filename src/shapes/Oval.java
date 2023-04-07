@@ -1,5 +1,7 @@
 package shapes;
 
+import java.util.Objects;
+
 /**
  * Represents an oval shape.
  */
@@ -61,6 +63,53 @@ public class Oval implements IShape {
   }
 
   /**
+   * Changes the specified parameter to the new parameter.
+   *
+   * @param parameter to be modified
+   * @param value     new value
+   */
+  @Override
+  public void changeValue(String parameter, double value) {
+    if (parameter.equals("") || parameter.equals(null)) {
+      return;
+    }
+    if (parameter.equalsIgnoreCase("xradius")) {
+      this.xRadius = value;
+    }
+    if (parameter.equalsIgnoreCase("yradius")) {
+      this.yRadius = value;
+    }
+  }
+
+  /**
+   * Changes the original name/description to a new one.
+   *
+   * @param name1   original name/description
+   * @param newName new name/description
+   */
+  @Override
+  public void changeName(String name1, String newName) {
+    if (newName.equals("") || newName.equals(null)) {
+      return;
+    }
+    if (name1.equalsIgnoreCase(this.name)) {
+      this.name = newName;
+    }
+  }
+
+  /**
+   * Moves the shape to a new point.
+   * @param point new location
+   */
+  @Override
+  public void moveShape(Point2D point) {
+    if (point == null) {
+      return;
+    }
+    this.center = point;
+  }
+
+  /**
    * String description of the oval.
    * @return string of oval
    */
@@ -74,5 +123,35 @@ public class Oval implements IShape {
     String color = "Color: " + this.color.toString();
 
     return name + type + dimensions + xRadius + yRadius + color;
+  }
+
+  /**
+   * This determines whether another object is equal to this shape.
+   * @param other object
+   * @return boolean if objects are equal
+   */
+  @Override
+  public boolean equals(Object other) {
+    if (this == other) { // identity check
+      return true;
+    }
+    if (this.getClass() != other.getClass()) {
+      return false;
+    }
+    Oval o = (Oval) other; // down casting
+    if ((this.xRadius == o.xRadius) && (this.yRadius == o.yRadius)
+            && (this.center == o.center) && (this.color == o.color)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * hashcode override given override equals method.
+   * @return hashcode for object.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.xRadius, this.yRadius, this.center, this.color);
   }
 }

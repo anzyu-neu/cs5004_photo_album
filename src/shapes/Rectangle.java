@@ -1,5 +1,7 @@
 package shapes;
 
+import java.util.Objects;
+
 /**
  * This class represents rectangles.
  */
@@ -69,6 +71,53 @@ public class Rectangle implements IShape {
   }
 
   /**
+   * Changes the specified parameter to the new parameter.
+   *
+   * @param parameter to be modified
+   * @param value     new value
+   */
+  @Override
+  public void changeValue(String parameter, double value) {
+    if (parameter.equals("") || parameter.equals(null)) {
+      return;
+    }
+    if (parameter.equalsIgnoreCase("width")) {
+      this.width = value;
+    }
+    if (parameter.equalsIgnoreCase("height")) {
+      this.height = value;
+    }
+  }
+
+  /**
+   * Changes the original name/description to a new one.
+   *
+   * @param name1   original name/description
+   * @param newName new name/description
+   */
+  @Override
+  public void changeName(String name1, String newName) {
+    if (newName.equals("") || newName.equals(null)) {
+      return;
+    }
+    if (name1.equalsIgnoreCase(this.name)) {
+      this.name = newName;
+    }
+  }
+
+  /**
+   * Moves the shape to a new point.
+   * @param point new location
+   */
+  @Override
+  public void moveShape(Point2D point) {
+    if (point == null) {
+      return;
+    }
+    this.corner = point;
+  }
+
+  /**
    * String description of the rectangle.
    * @return string of rectangle
    */
@@ -82,5 +131,35 @@ public class Rectangle implements IShape {
     String color = "Color: " + this.color.toString();
 
     return name + type + dimensions + width + height + color;
+  }
+
+  /**
+   * This determines whether another object is equal to this shape.
+   * @param other object
+   * @return boolean if objects are equal
+   */
+  @Override
+  public boolean equals(Object other) {
+    if (this == other) { // identity check
+      return true;
+    }
+    if (this.getClass() != other.getClass()) {
+      return false;
+    }
+    Rectangle r = (Rectangle) other; // down casting
+    if ((this.width == r.width) && (this.height == r.height)
+            && (this.corner == r.corner) && (this.color == r.color)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * hashcode override given override equals method.
+   * @return hashcode for object.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.width, this.height, this.corner, this.color);
   }
 }

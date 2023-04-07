@@ -1,15 +1,14 @@
 package photoalbum;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Set;
-import java.util.Date;
 
 import shapes.IShape;
 
-
+/**
+ * Snapshot classes that takes stores information on the photo album page.
+ */
 public class Snapshot {
   private String snapShotID;
   private Timestamp timeStamp;
@@ -23,7 +22,8 @@ public class Snapshot {
    */
   public Snapshot(String description, List<IShape> shapes) {
     this.timeStamp = new Timestamp(System.currentTimeMillis());
-    this.snapShotID = String.format("%.6f", this.timeStamp);
+    this.snapShotID = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss.SSSSSS")
+            .format(this.timeStamp);
     this.description = description;
     this.shapes = shapes;
   }
@@ -71,5 +71,30 @@ public class Snapshot {
       }
     }
     return shapeList;
+  }
+
+  /**
+   * Prints out the snapshot information.
+   * @return string output of snapshot
+   */
+  @Override
+  public String toString() {
+    String snapID = "Snapshot ID: " + this.snapShotID + "\n";
+    String timeStamp = "Timestamp: " + this.timeStamp + "\n";
+    String description = "Description: " + this.description + "\n";
+    String shapeInfo = "Shape Information:\n";
+    String shapes = "";
+    boolean isFirst = true;
+    for (IShape each : this.shapes) {
+      if (isFirst) {
+        shapes = shapes + each.toString();
+        isFirst = false;
+      }
+      else {
+        shapes = shapes + "\n\n" + each.toString();
+      }
+    }
+
+    return snapID + timeStamp + description + shapeInfo + shapes;
   }
 }

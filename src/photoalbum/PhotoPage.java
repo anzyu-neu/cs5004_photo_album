@@ -1,8 +1,10 @@
 package photoalbum;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import shapes.Circle;
@@ -20,7 +22,7 @@ import shapes.Triangle;
 public class PhotoPage {
   private static PhotoPage page = null;
   private static Set<IShape> shapes = new HashSet<>();
-  private static HashMap<String, Snapshot> history = new HashMap<>();
+  private static LinkedHashMap<String, Snapshot> history = new LinkedHashMap<>(); // ordered
 
   /**
    * This is the private default constructor for the photo page.
@@ -58,6 +60,9 @@ public class PhotoPage {
     }
     if (color == null) {
       throw new IllegalArgumentException("Please specify a color.");
+    }
+    if (name.equals("") || name.equals(null)) {
+      throw new IllegalArgumentException("Please provide a name/description of the shape.");
     }
     if (type.equalsIgnoreCase("rectangle")) {
       return new Rectangle(value1, value2, point, color, name);
@@ -135,9 +140,10 @@ public class PhotoPage {
     for (IShape each : shapes) {
       if (each.equals(shape)) {
         shapes.remove(each);
+        capture(description);
+        return;
       }
     }
-    capture(description);
   }
 
   /**
@@ -151,8 +157,9 @@ public class PhotoPage {
     for (IShape each : shapes) {
       if (name.equalsIgnoreCase(each.getName())) {
         each.changeValue(parameter, value);
-        description = "Changed " + each.getName() + " " + parameter + "to " + value;
+        description = "Changed " + each.getName() + " " + parameter + " to " + value;
         capture(description);
+        return;
       }
     }
   }
@@ -188,6 +195,44 @@ public class PhotoPage {
   }
 
   /**
+   * Moves shape on the page.
+   * @param name name/description of the shape
+   * @param point new point location for the shape.
+   */
+  public void moveShape(String name, Point2D point) {
+    if (point == null) {
+      return;
+    }
+    String description = "";
+    for (IShape each: shapes) {
+      if (name.equalsIgnoreCase(each.getName())) {
+        String original = each.getLocation().toString();
+        each.moveShape(point);
+        description = "Moved from " + original + " to " + point;
+        capture(description);
+        return;
+      }
+    }
+  }
+
+  /**
+   * Changes the names/description of the shape if it exists.
+   * @param name original name/description
+   * @param newName new name/description
+   */
+  public void changeName(String name, String newName) {
+    String description = "";
+    for (IShape each: shapes) {
+      if (name.equalsIgnoreCase(each.getName())) {
+        each.changeName(name, newName);
+        description = "Changed " + name + " to " + newName;
+        capture(description);
+        return;
+      }
+    }
+  }
+
+  /**
    * Textual representation of the page.
    * @return page's shapes as string
    */
@@ -200,7 +245,7 @@ public class PhotoPage {
         isFirst = false;
       }
       else {
-        output = "\n" + each.toString();
+        output = output + "\n\n" + each.toString();
       }
     }
     return output;
@@ -214,5 +259,36 @@ public class PhotoPage {
   private void capture(String description) {
     Snapshot s = new Snapshot(description, List.copyOf(shapes));
     history.put(s.getSnapID(), s);
+  }
+
+  /**
+   * Acquires the list of snapshots of the page.
+   * @return list of snapshots
+   */
+  public List<String> getSnapShots() {
+    List<String> snapshots = new ArrayList<String>();
+    for (Map.Entry<String, Snapshot> each : history.entrySet()) {
+      snapshots.add(each.getValue().getSnapID());
+    }
+    return snapshots;
+  }
+
+  /**
+   * Converts the snapshot history to a string.
+   * @return string of snapshot history.
+   */
+  public String printSnapShot() {
+    String output = "";
+    boolean isFirst = true;
+    for(Map.Entry<String, Snapshot> each : history.entrySet()) {
+      if (isFirst) {
+        output = output + each.toString();
+        isFirst = false;
+      }
+      else {
+        output = output + "\n\n" + each.toString();
+      }
+    }
+    return output;
   }
 }
