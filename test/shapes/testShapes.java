@@ -12,10 +12,9 @@ public class testShapes {
   private Rectangle rectangle;
   private Oval oval;
   private Square square;
+  private Circle circle;
+  private Triangle triangle;
   private Point2D p1;
-  private Point2D p2;
-  private Point2D p3;
-
 
   /**
    * Prepares instances for testing.
@@ -23,10 +22,12 @@ public class testShapes {
   @Before
   public void setUp() {
     this.p1 = new Point2D(0, 0);
-    this.p2 = new Point2D(1, 1);
-    this.p3 = new Point2D(2, 3);
     this.rectangle = new Rectangle(10, 20, this.p1,
             new Color(0, 0, 0), "r");
+    this.oval = new Oval(100, 200, this.p1, new Color(1, 1, 1), "o");
+    this.square = new Square(15, this.p1, new Color(2, 2, 2), "s");
+    this.circle = new Circle(2, this.p1, new Color(3, 3, 3), "c");
+    this.triangle = new Triangle(10, 5, this.p1, new Color(4, 4, 4), "t");
   }
 
   /**
