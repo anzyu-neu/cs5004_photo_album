@@ -123,9 +123,7 @@ public class PhotoPage {
     if (shape == null) {
       return;
     }
-    String description = "Added new shape " + shape.getName();
     shapes.add(shape);
-    capture(description);
   }
 
   /**
@@ -136,11 +134,9 @@ public class PhotoPage {
     if (shape == null) {
       return;
     }
-    String description = "Removed shape " + shape.getName();
     for (IShape each : shapes) {
       if (each.equals(shape)) {
         shapes.remove(each);
-        capture(description);
         return;
       }
     }
@@ -153,12 +149,9 @@ public class PhotoPage {
    * @param value new value
    */
   public void changeSize(String name, String parameter, double value) {
-    String description = "";
     for (IShape each : shapes) {
       if (name.equalsIgnoreCase(each.getName())) {
         each.changeValue(parameter, value);
-        description = "Changed " + each.getName() + " " + parameter + " to " + value;
-        capture(description);
         return;
       }
     }
@@ -172,23 +165,16 @@ public class PhotoPage {
    * @param value new value
    */
   public void changeColor(String name, String color, double value) {
-    String description = "";
     for (IShape each: shapes) {
       if (name.equalsIgnoreCase(each.getName())) {
         if (color.equalsIgnoreCase("red")) {
           each.getColor().setRed(value);
-          description = "Changed " + color + " to " + value;
-          capture(description);
         }
         if (color.equalsIgnoreCase("green")) {
           each.getColor().setGreen(value);
-          description = "Changed " + color + " to " + value;
-          capture(description);
         }
         if (color.equalsIgnoreCase("blue")) {
           each.getColor().setBlue(value);
-          description = "Changed " + color + " to " + value;
-          capture(description);
         }
       }
     }
@@ -203,13 +189,10 @@ public class PhotoPage {
     if (point == null) {
       return;
     }
-    String description = "";
     for (IShape each: shapes) {
       if (name.equalsIgnoreCase(each.getName())) {
         String original = each.getLocation().toString();
         each.moveShape(point);
-        description = "Moved from " + original + " to " + point;
-        capture(description);
         return;
       }
     }
@@ -221,12 +204,9 @@ public class PhotoPage {
    * @param newName new name/description
    */
   public void changeName(String name, String newName) {
-    String description = "";
     for (IShape each: shapes) {
       if (name.equalsIgnoreCase(each.getName())) {
         each.changeName(name, newName);
-        description = "Changed " + name + " to " + newName;
-        capture(description);
         return;
       }
     }
@@ -256,25 +236,26 @@ public class PhotoPage {
    * @param description description of the action.
    * @return new snapshot
    */
-  private void capture(String description) {
+  public void capture(String description) {
     Snapshot s = new Snapshot(description, List.copyOf(shapes));
     history.put(s.getSnapID(), s);
   }
 
   /**
-   * Acquires the list of snapshots of the page.
-   * @return list of snapshots
+   * Acquires the linked hashmap of snapshots of the page.
+   * @return hashmap of snapshots
    */
-  public List<String> getSnapShots() {
-    List<String> snapshots = new ArrayList<String>();
+  public LinkedHashMap<String, Snapshot> getSnapShots() {
+
+    /*List<String> snapshots = new ArrayList<String>();
     for (Map.Entry<String, Snapshot> each : history.entrySet()) {
       snapshots.add(each.getValue().getSnapID());
-    }
-    return snapshots;
+    }*/
+    return history;
   }
 
   /**
-   * Converts the snapshot history to a string.
+   * Converts the snapshot history to a string of snapshot IDs.
    * @return string of snapshot history.
    */
   public String printSnapShot() {
