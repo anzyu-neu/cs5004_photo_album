@@ -1,4 +1,5 @@
 package swing;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -27,7 +28,7 @@ public class PhotoAlbumSwingView extends JFrame {
     PhotoPage page = PhotoPage.getPage(); // model
     SwingView view = new SwingView(); // view
     File file = new File("C:\\Users\\User1\\IdeaProjects\\CS5004\\cs5004_photo_album\\demo_input.txt");
-    PhotoAlbumMVCControllerVisual controller = new PhotoAlbumMVCControllerVisual(page, view, file);
+    PhotoAlbumMVCControllerVisual controller = new PhotoAlbumMVCControllerVisual(page, view);
     controller.go();
   }
 }
@@ -56,15 +57,32 @@ class SwingView extends JFrame {
     setSize(WIDTH, HEIGHT);
     setTitle("CS5004 Shapes Photo Album Viewer");
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // ignore x on window
+    createQuitButton();
+  }
 
+  /**
+   * Adds quit button to window
+   */
+  private void createQuitButton() {
     //create quit button
-    quitButton = new JButton(" xx Quit xx ");
+    quitButton = new JButton("xx Quit xx");
     quitButton.setBounds(QUIT_X, QUIT_Y, BUTTON_SIZE_X, BUTTON_SIZE_Y);
     quitButton.addActionListener(new MyCloseListener());
     add(quitButton);
+  }
 
-    // create next button
+  /**
+   * Draws out components
+   * @param g graphics instance
+   */
+  public void paint(Graphics g) {
+    super.paint(g);
 
+    g.setColor(Color.RED);
+    g.drawRect(150, 200, 50, 100);
+    g.drawString("Testing testing", 100, 200);
+
+    // TODO create draw rec and draw oval functions. iterate through snapshot history list of shapes, call associated functions inside paint
   }
 
   /**
@@ -80,12 +98,6 @@ class SwingView extends JFrame {
 
      */
   }
-
-  public void drawing() {
-    repaint();
-  }
-
-  //TODO draw page
 }
 
 /**
@@ -101,13 +113,12 @@ class PhotoAlbumMVCControllerVisual implements ActionListener {
    * @param page the model (photo page)
    * @param view the view (swing view)
    */
-  public PhotoAlbumMVCControllerVisual(PhotoPage page, SwingView view, File file)
+  public PhotoAlbumMVCControllerVisual(PhotoPage page, SwingView view)
       throws FileNotFoundException {
     this.page = page;
     this.view = view;
     this.view.setActionListener(this);
     InterpretFile interpreter = new InterpretFile();
-    interpreter.processFile(file);
   }
 
   /**
@@ -118,6 +129,10 @@ class PhotoAlbumMVCControllerVisual implements ActionListener {
     this.view.setVisible(true);
   }
 
+  /**
+   * Creates the event for a given action
+   * @param e the event to be processed
+   */
   @Override
   public void actionPerformed(ActionEvent e) {
     /*switch(e.getActionCommand()) {
@@ -127,7 +142,11 @@ class PhotoAlbumMVCControllerVisual implements ActionListener {
      */
   }
 
-  public Snapshot getNextSnapshot() {
+  /**
+   * Acquires the snapshot history for the page
+   * @return linked hashmap with snapshot history
+   */
+  public Snapshot getSnapshotIDs() {
     // TODO iterate through snapshots to acquire list
 
     return null;
