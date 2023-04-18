@@ -168,13 +168,13 @@ public class PhotoPageTest {
     page1.addShape(this.shape3);
     assertEquals(2, page1.getShapes().size());
 
-    page1.changeSize("s", "width", 200);
+    page1.changeSize("s", 200, 100);
     String newSquare = "Name: s\n" +
             "Type: square\n" +
             "Min corner: (500.0,500.0), Width: 200.0, Color: (1.0,1.0,1.0)";
     assertEquals(newSquare, page1.getShapes().get(0).toString());
 
-    page1.changeSize("red rectangle", "width", 125);
+    page1.changeSize("red rectangle", 125, 0);
     String newRec = "Name: red rectangle\n" +
             "Type: rectangle\n" +
             "Min corner: (100.0,300.0), Width: 125.0, Height: 100.0, Color: (1.0,0.0,0.0)";
@@ -270,7 +270,7 @@ public class PhotoPageTest {
             "Name: O\n" +
             "Type: oval\n" +
             "Center: (500.0,100.0), X radius: 60.0, Y radius: 30.0, Color: (0.0,0.0,1.0)";
-    page1.changeSize("r", "width", 25);
+    page1.changeSize("r", 25, 0);
     page1.changeColor("r", "red", 0);
     page1.changeColor("r", "green", 1);
     page1.moveShape("r", new Point2D(100, 300));
