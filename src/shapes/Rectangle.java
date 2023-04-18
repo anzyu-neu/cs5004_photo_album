@@ -72,21 +72,13 @@ public class Rectangle implements IShape {
 
   /**
    * Changes the specified parameter to the new parameter.
-   *
-   * @param parameter to be modified
-   * @param value     new value
+   * @param value first dimension
+   * @param value2 second dimension
    */
   @Override
-  public void changeValue(String parameter, double value) {
-    if (parameter.equals("") || parameter.equals(null)) {
-      return;
-    }
-    if (parameter.equalsIgnoreCase("width")) {
-      this.width = value;
-    }
-    if (parameter.equalsIgnoreCase("height")) {
-      this.height = value;
-    }
+  public void changeValue(double value, double value2) {
+    this.width = value;
+    this.height = value;
   }
 
   /**

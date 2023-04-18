@@ -24,11 +24,11 @@ public interface IShape {
   Color getColor();
 
   /**
-   * Changes the specified parameter to the new parameter.
-   * @param parameter to be modified
-   * @param value new value
+   * Changes the parameters for 2 parameter shapes
+   * @param value1 first dimension
+   * @param value2 second dimension
    */
-  void changeValue(String parameter, double value);
+  void changeValue(double value1, double value2);
 
   /**
    * Changes the original name/description to a new one.

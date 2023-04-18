@@ -63,22 +63,15 @@ public class Oval implements IShape {
   }
 
   /**
-   * Changes the specified parameter to the new parameter.
-   *
-   * @param parameter to be modified
-   * @param value     new value
+   * Changes the specified parameters to the new parameters.
+   * @param value1 first dimension
+   * @param value2 second dimension
    */
   @Override
-  public void changeValue(String parameter, double value) {
-    if (parameter.equals("") || parameter.equals(null)) {
-      return;
-    }
-    if (parameter.equalsIgnoreCase("xradius")) {
-      this.xRadius = value;
-    }
-    if (parameter.equalsIgnoreCase("yradius")) {
-      this.yRadius = value;
-    }
+  public void changeValue(double value1, double value2) {
+    this.xRadius = value1;
+    this.yRadius = value2;
+
   }
 
   /**

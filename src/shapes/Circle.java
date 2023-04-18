@@ -69,18 +69,12 @@ public class Circle implements IShape {
 
   /**
    * Changes the specified parameter to the new parameter.
-   *
-   * @param parameter to be modified
-   * @param value     new value
+   * @param value first dimension
+   * @param value2 second dimension
    */
   @Override
-  public void changeValue(String parameter, double value) {
-    if (parameter.equals("") || parameter.equals(null)) {
-      return;
-    }
-    if (parameter.equalsIgnoreCase("radius")) {
-      this.radius = value;
-    }
+  public void changeValue(double value, double value2) {
+    this.radius = value;
   }
 
   /**

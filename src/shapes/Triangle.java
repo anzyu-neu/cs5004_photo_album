@@ -62,20 +62,16 @@ public class Triangle implements IShape {
     return this.color;
   }
 
+
   /**
    * Changes the specified parameter to the new parameter.
-   *
-   * @param parameter to be modified
-   * @param value     new value
+   * @param value first dimension
+   * @param value2 second dimension
    */
   @Override
-  public void changeValue(String parameter, double value) {
-    if (parameter.equalsIgnoreCase("base")) {
-      this.base = value;
-    }
-    if (parameter.equalsIgnoreCase("height")) {
-      this.height = value;
-    }
+  public void changeValue(double value, double value2) {
+    this.base = value;
+    this.height = value;
   }
 
   /**
