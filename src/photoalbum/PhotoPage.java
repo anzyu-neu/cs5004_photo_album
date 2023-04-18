@@ -1,6 +1,5 @@
 package photoalbum;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -145,13 +144,13 @@ public class PhotoPage {
   /**
    * Change the value of a shape's parameter
    * @param name shape's name/description
-   * @param parameter parameter to be changed
-   * @param value new value
+   * @param value1 first dimension
+   * @param value2 2nd dimension
    */
-  public void changeSize(String name, String parameter, double value) {
+  public void changeSize(String name, double value1, double value2) {
     for (IShape each : shapes) {
       if (name.equalsIgnoreCase(each.getName())) {
-        each.changeValue(parameter, value);
+        each.changeValue(value1, value2);
         return;
       }
     }
