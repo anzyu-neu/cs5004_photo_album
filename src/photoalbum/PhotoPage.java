@@ -160,21 +160,12 @@ public class PhotoPage {
    * This changes one of the RGB values to a new value if the shape exists.
    *
    * @param name shape to be modified
-   * @param color RGB attribute to be modified
-   * @param value new value
+   * @param color RGB color to be modified
    */
-  public void changeColor(String name, String color, double value) {
+  public void changeColor(String name, Color color) {
     for (IShape each: shapes) {
       if (name.equalsIgnoreCase(each.getName())) {
-        if (color.equalsIgnoreCase("red")) {
-          each.getColor().setRed(value);
-        }
-        if (color.equalsIgnoreCase("green")) {
-          each.getColor().setGreen(value);
-        }
-        if (color.equalsIgnoreCase("blue")) {
-          each.getColor().setBlue(value);
-        }
+        each.changeColor(color);
       }
     }
   }

@@ -74,6 +74,14 @@ public class Snapshot {
   }
 
   /**
+   * This gets the shapes on the page from the snapshot.
+   * @return list of IShapes from the snapshot.
+   */
+  public List<IShape> getPageShapes() {
+    return this.shapes;
+  }
+
+  /**
    * Prints out the snapshot information.
    * @return string output of snapshot
    */
