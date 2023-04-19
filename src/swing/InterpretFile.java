@@ -17,8 +17,18 @@ import shapes.Point2D;
 public class InterpretFile {
 
   PhotoPage page = PhotoPage.getPage();
+
+  /**
+   * Constructor for interpreter.
+   */
   public InterpretFile() {
   }
+
+  /**
+   * Processes data file line by line.
+   * @param file data file with commands
+   * @throws FileNotFoundException if file does not exist
+   */
   public void processFile(File file) throws FileNotFoundException {
     String line;
     Scanner scanner;
@@ -34,6 +44,10 @@ public class InterpretFile {
     }
   }
 
+  /**
+   * Processes the line command from file.
+   * @param command string line
+   */
   private void processCommands(String command) {
     String[] parameters = command.split(" ");
     int length = parameters.length;
@@ -46,10 +60,10 @@ public class InterpretFile {
 
           String shapeDescription = parameters[1];
           String type = parameters[2];
-          int param1 = Integer.parseInt(parameters[3]);
-          int param2 = Integer.parseInt(parameters[4]);
-          Point2D point = new Point2D(Integer.parseInt(parameters[5])
-              , Integer.parseInt(parameters[6]));
+          int param1 = Integer.parseInt(parameters[5]);
+          int param2 = Integer.parseInt(parameters[6]);
+          Point2D point = new Point2D(Integer.parseInt(parameters[3])
+              , Integer.parseInt(parameters[4]));
           Color color = new Color(Integer.parseInt(parameters[7]), Integer.parseInt(parameters[8]),
               Integer.parseInt(parameters[9]));
 
@@ -62,9 +76,9 @@ public class InterpretFile {
 
           String shapeDescription = parameters[1];
           String type = parameters[2];
-          int param1 = Integer.parseInt(parameters[3]);
-          Point2D point = new Point2D(Integer.parseInt(parameters[4])
-              , Integer.parseInt(parameters[5]));
+          int param1 = Integer.parseInt(parameters[5]);
+          Point2D point = new Point2D(Integer.parseInt(parameters[3])
+              , Integer.parseInt(parameters[4]));
           Color color = new Color(Integer.parseInt(parameters[6]), Integer.parseInt(parameters[7]),
               Integer.parseInt(parameters[8]));
 
@@ -78,13 +92,18 @@ public class InterpretFile {
         page.moveShape(parameters[1], point);
         break;
       case "resize":
-        page.changeSize(parameters[1], Double.parseDouble(parameters[2]),
-            Double.parseDouble(parameters[3]));
+        page.changeSize(parameters[1], Integer.parseInt(parameters[2]),
+            Integer.parseInt(parameters[3]));
+        break;
+      case "color":
+        Color color = new Color(Integer.parseInt(parameters[2]), Integer.parseInt(parameters[3]),
+            Integer.parseInt(parameters[4]));
+        page.changeColor(parameters[1], color);
         break;
       case "snapShot":
         String description = "";
         for (int i = 1; i < length; i++) {
-          description = description + parameters[i];
+          description = description + " " + parameters[i];
         }
         page.capture(description);
         break;
