@@ -42,4 +42,22 @@ public interface IShape {
    * @param point new location
    */
   void moveShape(Point2D point);
+
+  /**
+   * Gets the first parameter for the shape.
+   * @return width/x-radius/base for rectangles/ovals/triangles
+   */
+  double getParam1();
+
+  /**
+   * Gets the second parameter for the shape.
+   * @return height/y-radius/height for rectangles/ovals/triangles
+   */
+  double getParam2();
+
+  /**
+   * Changes the color of the shape.
+   * @param color new color
+   */
+  void changeColor(Color color);
 }

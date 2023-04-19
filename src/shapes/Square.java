@@ -101,6 +101,33 @@ public class Square implements IShape {
   }
 
   /**
+   * Gets the first parameter for the shape.
+   * @return width/x-radius/base for rectangles/ovals/triangles
+   */
+  @Override
+  public double getParam1() {
+    return this.width;
+  }
+
+  /**
+   * Gets the second parameter for the shape.
+   * @return height/y-radius/height for rectangles/ovals/triangles
+   */
+  @Override
+  public double getParam2() {
+    return 0;
+  }
+
+  /**
+   * Changes the color of the shape.
+   * @param color new color
+   */
+  @Override
+  public void changeColor(Color color) {
+    this.color = color;
+  }
+
+  /**
    * String description of the square.
    * @return string of square
    */

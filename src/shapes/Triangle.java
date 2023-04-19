@@ -104,6 +104,33 @@ public class Triangle implements IShape {
   }
 
   /**
+   * Gets the first parameter for the shape.
+   * @return width/x-radius/base for rectangles/ovals/triangles
+   */
+  @Override
+  public double getParam1() {
+    return this.base;
+  }
+
+  /**
+   * Gets the second parameter for the shape.
+   * @return height/y-radius/height for rectangles/ovals/triangles
+   */
+  @Override
+  public double getParam2() {
+    return this.height;
+  }
+
+  /**
+   * Changes the color of the shape.
+   * @param color new color
+   */
+  @Override
+  public void changeColor(Color color) {
+    this.color = color;
+  }
+
+  /**
    * String description of the rectangle.
    * @return string of rectangle
    */
