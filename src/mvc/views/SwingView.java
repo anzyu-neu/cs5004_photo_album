@@ -16,8 +16,6 @@ import shapes.IShape;
  */
 public class SwingView extends JFrame {
   private List<IShape> shapesList = new ArrayList<>();
-  public static final int WIDTH = 600;
-  public static final int HEIGHT = 700;
   private JButton quit;
   private JButton next;
   private JButton previous;
@@ -26,9 +24,9 @@ public class SwingView extends JFrame {
   /**
    * Creates the swing window for the graphical view.
    */
-  public SwingView(String name) {
+  public SwingView(String name, int width, int height) {
     super(name);
-    setSize(WIDTH, HEIGHT);
+    setSize(width, height);
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // ignore x on window
 
     JPanel panel = new JPanel(new BorderLayout());

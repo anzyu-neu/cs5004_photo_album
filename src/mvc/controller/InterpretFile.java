@@ -45,6 +45,14 @@ public class InterpretFile {
   }
 
   /**
+   * Helper method for testing.
+   * @param command line
+   */
+  private void printCommand(String command) {
+    System.out.println(command);
+  }
+
+  /**
    * Processes the line command from file.
    * @param command string line
    */

@@ -37,7 +37,7 @@ public class PhotoAlbumControllerText {
   public void getShapes() {
     List<String> keys = new ArrayList<>(page.getSnapShots().keySet());
     for (int i = 0; i < keys.size(); i++) {
-      this.view.addSnapshot(page.getSnapShots().get(keys.get(i));
+      this.view.addSnapshot(page.getSnapShots().get(keys.get(i)));
       this.view.addShapes(page.getSnapShots().get(keys.get(i)).getPageShapes());
       this.view.paint();
     }
@@ -135,6 +135,13 @@ public class PhotoAlbumControllerText {
           description = description + " " + parameters[i];
         }
         page.capture(description);
+        break;
+      case "snapshot":
+        String des = "";
+        for (int i = 1; i < length; i++) {
+          des = des + " " + parameters[i];
+        }
+        page.capture(des);
         break;
     }
   }
