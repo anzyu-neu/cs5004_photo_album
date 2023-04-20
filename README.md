@@ -19,6 +19,10 @@ Changed how snapshots were captured. Initially had snapshots recorded after ever
 to have an active snapshot call. 
 
 Controller implementation: 
-Created a file interpreter line by line. It then processes the results and performs the line actions on the page.
+Created a file interpreter line by line. It then processes the results and performs the line actions on the page (model).
+The controllers for the 2 views are very similar. They each interpret the lines, process the commands on the page. The controller has access to the page and can then send the information to the view to display the modifications. 
 
 View implementation:
+With access to the page and all the modifications made after the file is read by the controller, it sends the view the snapshots with its associated information. 
+The graphical view then draws each shape from the shape history list in the model on the page. 
+The textual view converts the shape history in shapes to HTML + SVG and adds it to the output file. 
