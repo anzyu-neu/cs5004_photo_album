@@ -20,7 +20,7 @@ import shapes.Point2D;
 /**
  * This represents the controller for the photo album graphical view application.
  */
-class PhotoAlbumMVCControllerVisual implements ActionListener {
+public class PhotoAlbumMVCControllerVisual implements ActionListener {
   private PhotoPage page;
   private SwingView view;
   private int count = 0;
