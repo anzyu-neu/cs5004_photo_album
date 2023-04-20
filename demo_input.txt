@@ -22,4 +22,4 @@
 
 # Remove the rectangle, then take one more snapshot
     remove myrect
-    snapshot Selfie after removing the rectangle from the picture
+    snapShot Selfie after removing the rectangle from the picture
