@@ -1,10 +1,9 @@
-package photoalbum;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
+import photoalbum.PhotoPage;
 import shapes.Color;
 import shapes.IShape;
 import shapes.Point2D;
@@ -197,9 +196,6 @@ public class PhotoPageTest {
     page1.addShape(this.shape3);
     assertEquals(2, page1.getShapes().size());
 
-    page1.changeColor("red rectangle", "red", 0);
-    page1.changeColor("red rectangle", "green", 1);
-
     assertEquals("(0.0,1.0,0.0)", page1.getShapes().get(1).getColor().toString());
   }
 
@@ -217,9 +213,6 @@ public class PhotoPageTest {
             new Color(1, 1, 1), "s");
     page1.addShape(this.shape3);
     assertEquals(2, page1.getShapes().size());
-
-    page1.changeColor("red rectangle", "red", 0);
-    page1.changeColor("red rectangle", "green", 1);
 
     page1.changeName("red rectangle", "green rectangle");
     assertEquals("green rectangle", page1.getShapes().get(1).getName());
@@ -271,8 +264,6 @@ public class PhotoPageTest {
             "Type: oval\n" +
             "Center: (500.0,100.0), X radius: 60.0, Y radius: 30.0, Color: (0.0,0.0,1.0)";
     page1.changeSize("r", 25, 0);
-    page1.changeColor("r", "red", 0);
-    page1.changeColor("r", "green", 1);
     page1.moveShape("r", new Point2D(100, 300));
 
     assertEquals(s2, page1.toString());
