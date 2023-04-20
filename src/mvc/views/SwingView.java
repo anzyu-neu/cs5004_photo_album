@@ -1,46 +1,20 @@
-package swing;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
+package mvc.views;
+
+import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import photoalbum.PhotoPage;
-import shapes.*;
 
-/**
- * Swing graphical view of the photo album.
- */
-public class PhotoAlbumSwingView extends JFrame {
-
-  /**
-   * The main driver for the photo album graphical view application.
-   */
-  public static void main(String[] args) throws IOException {
-
-    PhotoPage page = PhotoPage.getPage(); // model
-    SwingView view = new SwingView("CS5004 Photo Album Viewer"); // view
-    File file = new File("C:\\Users\\User1\\IdeaProjects\\CS5004\\cs5004_photo_album\\demo_input.txt");
-    PhotoAlbumMVCControllerVisual controller = new PhotoAlbumMVCControllerVisual(page, view, file);
-    controller.go();
-  }
-}
+import mvc.listeners.MyCloseListener;
+import shapes.IShape;
 
 /**
  * This class creates a graphic window of desired size and appropriate buttons.
  */
-class SwingView extends JFrame {
+public class SwingView extends JFrame {
   private List<IShape> shapesList = new ArrayList<>();
   public static final int WIDTH = 600;
   public static final int HEIGHT = 700;
@@ -83,6 +57,7 @@ class SwingView extends JFrame {
 
   /**
    * Creates a next button with action command next.
+   *
    * @return next button
    */
   private JButton createNextButton() {
@@ -91,12 +66,22 @@ class SwingView extends JFrame {
     return next;
   }
 
+  /**
+   * Create select button with action command list.
+   *
+   * @return list button
+   */
   private JButton createListButton() {
     JButton list = new JButton("Select ^^");
     list.setActionCommand("List");
     return list;
   }
 
+  /**
+   * Create previous button with action command Previous.
+   *
+   * @return prev button
+   */
   private JButton createPreviousButton() {
     JButton prev = new JButton("Previous <-");
     prev.setActionCommand("Previous");
@@ -105,6 +90,7 @@ class SwingView extends JFrame {
 
   /**
    * Draws out components
+   *
    * @param g graphics instance
    */
   public void paint(Graphics g) {
@@ -112,18 +98,18 @@ class SwingView extends JFrame {
 
     for (IShape each : this.shapesList) {
       Color color = new Color(
-          (int) each.getColor().getRed(), (int) each.getColor().getGreen(),
-          (int) each.getColor().getBlue());
+              (int) each.getColor().getRed(), (int) each.getColor().getGreen(),
+              (int) each.getColor().getBlue());
       switch (each.getClass().getSimpleName()) {
         case "Rectangle":
           g.setColor(color);
           g.fillRect((int) each.getLocation().getX(), (int) each.getLocation().getY(),
-              (int) each.getParam1(), (int) each.getParam2());
+                  (int) each.getParam1(), (int) each.getParam2());
           break;
         case "Oval":
           g.setColor(color);
           g.fillOval((int) each.getLocation().getX(), (int) each.getLocation().getY(),
-              (int) each.getParam1(), (int) each.getParam2());
+                  (int) each.getParam1(), (int) each.getParam2());
           break;
       }
     }
@@ -143,79 +129,12 @@ class SwingView extends JFrame {
   /**
    * Sets the action listener for individual buttons.
    * Action listener will be the controller.
+   *
    * @param listener action listener.
    */
   public void setActionListener(ActionListener listener) {
     next.addActionListener(listener);
     previous.addActionListener(listener);
     list.addActionListener(listener);
-  }
-
-  private void errorMessage() {
-    JTextField message = new JTextField("Unable to perform action.");
-    message.setEditable(false);
-    this.add(message);
-  }
-}
-
-/**
- * This represents the controller for the photo album graphical view application.
- */
-class PhotoAlbumMVCControllerVisual implements ActionListener {
-  private PhotoPage page;
-  private SwingView view;
-  private int count = 0;
-
-  /**
-   * Instantiates a controller object.
-   * @param page the model (photo page)
-   * @param view the view (swing view)
-   */
-  public PhotoAlbumMVCControllerVisual(PhotoPage page, SwingView view, File file)
-      throws FileNotFoundException {
-    this.page = page;
-    this.view = view;
-    this.view.setActionListener(this);
-    InterpretFile interpreter = new InterpretFile();
-    interpreter.processFile(file);
-    getShapes();
-  }
-
-  /**
-   * Runs the application.
-   * @throws IOException if no file provided
-   */
-  public void go() throws IOException {
-    this.view.setVisible(true);
-  }
-
-  /**
-   * Creates the event for a given action
-   * @param e the event to be processed
-   */
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    switch(e.getActionCommand()) {
-      case "Next":
-        this.count--;
-        getShapes();
-        this.view.repaint();
-        break;
-    }
-  }
-
-  /**
-   * Acquires the shapes history from the snapshot of the page.
-   * @return list of shapes from snapshot history
-   */
-  public void getShapes() {
-    // TODO iterate through snapshots to acquire list
-    List<String> keys = new ArrayList<>(page.getSnapShots().keySet());
-    if (this.count >= 0 && this.count <= keys.size()) {
-      view.addShapes(page.getSnapShots().get(keys.get(this.count)).getPageShapes());
-    }
-    else {
-
-    }
   }
 }

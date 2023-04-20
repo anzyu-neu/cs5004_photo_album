@@ -237,10 +237,6 @@ public class PhotoPage {
    */
   public LinkedHashMap<String, Snapshot> getSnapShots() {
 
-    /*List<String> snapshots = new ArrayList<String>();
-    for (Map.Entry<String, Snapshot> each : history.entrySet()) {
-      snapshots.add(each.getValue().getSnapID());
-    }*/
     return history;
   }
 

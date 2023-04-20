@@ -1,4 +1,4 @@
-package swing;
+package mvc.controller;
 
 import java.util.ArrayList;
 import java.util.List;
